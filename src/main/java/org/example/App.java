@@ -12,8 +12,20 @@ public class App {
         this.sc = sc;
     }
 
+//    == Board add ==
+//    command) add
+//    title : 1
+//    body : 1
+//    1번 게시판이 등록되었습니다
+//    == motivation list ==
+//    id   //   motivation   //  source
+//     2   //     456        //    asd
+//     1   //     123        //    qwe
+
     public void run() {
         System.out.println("==Board Start==");
+
+        int lastId = 1;
         while (true) {
             System.out.print("command )");
             String cmd = sc.nextLine().trim();
@@ -31,7 +43,14 @@ public class App {
                 String title = sc.nextLine().trim();
                 System.out.print("body : ");
                 String body = sc.nextLine().trim();
-                System.out.println("번 게시판이 등록되었습니다");
+
+
+                System.out.printf("%s번 게시판이 등록되었습니다\n", lastId);
+                lastId++;
+            }else if(cmd.equals("list")) {
+                System.out.println("==Board List==");
+                System.out.printf(" id  //  title   //  body    \n");
+                System.out.println("=".repeat(35));
             }
 
         }
