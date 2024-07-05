@@ -1,5 +1,9 @@
 package org.example;
 
+import org.example.entity.Motivation;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -12,20 +16,14 @@ public class App {
         this.sc = sc;
     }
 
-//    == Board add ==
-//    command) add
-//    title : 1
-//    body : 1
-//    1번 게시판이 등록되었습니다
-//    == motivation list ==
-//    id   //   motivation   //  source
-//     2   //     456        //    asd
-//     1   //     123        //    qwe
 
     public void run() {
-        System.out.println("==Board Start==");
+        System.out.println("==Motivation Start==");
 
-        int lastId = 1;
+        int lastId = 0;
+
+        List<Motivation> ms = new ArrayList<>();
+        // boards 라는 변수를 배열로 선언!! Board에 있는 변수만 담는다
         while (true) {
             System.out.print("command )");
             String cmd = sc.nextLine().trim();
@@ -39,18 +37,38 @@ public class App {
             }
 
             if (cmd.equals("add")) {
+                int id = lastId + 1;
                 System.out.print("title : ");
                 String title = sc.nextLine().trim();
                 System.out.print("body : ");
                 String body = sc.nextLine().trim();
 
+                Motivation m = new Motivation(id, title, body);
 
-                System.out.printf("%s번 게시판이 등록되었습니다\n", lastId);
+                ms.add(m);
+
+                Motivation motivation = new Motivation(id, title , body);
+                ms.add(motivation);
+
+                System.out.printf("%s번 게시판이 등록되었습니다\n", id);
                 lastId++;
-            }else if(cmd.equals("list")) {
+            } else if (cmd.equals("list")) {
                 System.out.println("==Board List==");
                 System.out.printf(" id  //  title   //  body    \n");
                 System.out.println("=".repeat(35));
+                if(ms.size() == 0) {
+                    System.out.println("등록된 글 없음");
+                }else {
+                    System.out.println("있음");
+                    System.out.println("등록된 글 갯수 : " + ms.size());
+                }
+
+                if(ms.size() == 0) {
+                    System.out.println("등록된 게시판이 없습니다 ");
+                }else {
+                    System.out.println("있음");
+                    System.out.println("등록된 게시판 갯수 : " + ms.size());
+                }
             }
 
         }
