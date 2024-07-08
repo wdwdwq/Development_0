@@ -57,8 +57,14 @@ public class App {
 
                 for (int i = ms.size() - 1; i >= 0; i--) {
                     Motivation m = ms.get(i);
+
+                    if (m.getBody().length() > 7) { // 본문 내용이 7지 이상이면
+                        System.out.printf("   %d  //    %s    //    %s  \n", m.getId(), m.getBody().substring(0, 5) + "...", m.getTitle());//본문 내용을 처음 5자까지만 출력하고 "..." 붙인다 7자 미만이면
+                        continue;
+                    }
+
                     System.out.printf("      %d      //      %s       \n",m.getId(),m.getTitle());
-                }
+                } // 제목 내용을 그대로 출력
 
                 if(ms.isEmpty()) {
                     System.out.println("등록된 게시판이 없습니다 ");
