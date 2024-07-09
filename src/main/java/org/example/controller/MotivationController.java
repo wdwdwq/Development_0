@@ -2,13 +2,14 @@ package org.example.controller;
 
 import org.example.entity.Motivation;
 import org.example.system.Container;
+import org.example.system.Rq;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MotivationController {
-    int lastId = 0;
-    List<Motivation> ms = new ArrayList<>();
+    int lastId;
+    List<Motivation> ms;
 
     public MotivationController() {
         lastId = 0;
@@ -43,8 +44,12 @@ public class MotivationController {
             Motivation m = ms.get(i);
             System.out.printf("%d   /   %s  /   %s\n", m.getId(), m.getTitle(), m.getBody());
         }
+
+        
     }
 
-    public void delete() {
+    public void delete(Rq rq) {
+        System.out.println("delete 실행");
+
     }
 }
