@@ -1,40 +1,46 @@
 package org.example.system;
 
 import org.example.controller.MotivationController;
-import org.example.entity.Motivation;
-import org.example.system.system.Container;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import org.example.controller.SystemController;
 
 public class App {
 
 
     public void run() {
-        System.out.println("==Motivation Start==");
+        System.out.println("== motivation execution ==");
 
+        SystemController systemController = new SystemController();
         MotivationController motivationController = new MotivationController();
+
         while (true) {
-            System.out.print("command ) ");
+            System.out.print("command) ");
             String cmd = Container.getScanner().nextLine().trim();
 
             if (cmd.equals("exit")) {
-                System.out.println("==Motivation exit==");
+                systemController.exit();
                 break;
-            } else if (cmd.isEmpty()) {
+            } else if (cmd.length() == 0) {
                 System.out.println("명령어 입력해");
                 continue;
             }
 
             if (cmd.equals("add")) {
                 motivationController.add();
-
             } else if (cmd.equals("list")) {
                 motivationController.list();
+            } else if (cmd.startsWith("delete")) {
 
+                Rq rq = new Rq(cmd);
+
+                System.out.println(rq.getActionMethod());
+                System.out.println(rq.getParams("id"));
+                System.out.println(rq.getParams("source"));
+                System.out.println(rq.getParams("motivation"));
+
+//                motivationController.delete();
+            } else {
+                System.out.println("사용할 수 없는 명령어입니다");
             }
-
         }
     }
 }

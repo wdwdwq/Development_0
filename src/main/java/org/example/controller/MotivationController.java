@@ -1,7 +1,7 @@
 package org.example.controller;
 
 import org.example.entity.Motivation;
-import org.example.system.system.Container;
+import org.example.system.Container;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,5 +43,8 @@ public class MotivationController {
             Motivation m = ms.get(i);
             System.out.printf("%d   /   %s  /   %s\n", m.getId(), m.getTitle(), m.getBody());
         }
+    }
+
+    public void delete() {
     }
 }
