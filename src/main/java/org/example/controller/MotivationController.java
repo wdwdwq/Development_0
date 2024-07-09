@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.Container;
 import org.example.entity.Motivation;
 
 import java.util.ArrayList;
@@ -9,19 +10,17 @@ import java.util.Scanner;
 public class MotivationController {
     int lastId;
     List<Motivation> ms;
-    Scanner sc;
 
-    public MotivationController(Scanner sc) {
-        this.sc = sc;
+    public MotivationController() {
         this.lastId = 0;
         ms = new ArrayList<>();
     }
     public void add() {
         int id = lastId + 1; // id 생성 후 lastId 값 증가
         System.out.print("title : "); //
-        String title = sc.nextLine().trim();
+        String title = Container.getScanner().nextLine().trim();
         System.out.print("body : ");
-        String body = sc.nextLine().trim();
+        String body = Container.getScanner().nextLine().trim();
 
         Motivation m = new Motivation(id, title, body);
         ms.add(m);
