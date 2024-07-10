@@ -39,7 +39,7 @@ public class App {
                 case "list":
                     motivationController.list();
                     break;
-                case "delete":
+                case "delete"://delete?id=1이런식으로 입력
                     motivationController.delete(rq);
                     break;
                 default:
