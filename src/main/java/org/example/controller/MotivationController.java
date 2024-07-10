@@ -45,7 +45,7 @@ public class MotivationController {
             System.out.printf("%d   /   %s  /   %s\n", m.getId(), m.getTitle(), m.getBody());
         }
 
-        
+
     }
 
     public void delete(Rq rq) {
@@ -68,6 +68,39 @@ public class MotivationController {
 
         ms.remove(motivation);
         System.out.printf("%d번 motivation을 삭제했습니다\n", id);
+    }
+
+
+    public void edit(Rq rq) {
+        System.out.println("eidt 실행");
+        int id;
+
+        try {
+            id = Integer.parseInt(rq.getParams("id"));
+        } catch (NumberFormatException e) {
+            System.out.println("정수 입력 오류");
+            return;
+        }
+
+        Motivation m = findById(id);
+
+        if (m == null) {
+            System.out.printf("%d번 motivation은 없어\n", id);
+            return;
+        }
+
+        System.out.println("title(기존) : " + m.getTitle());
+        System.out.println("body(기존) : " + m.getBody());
+
+        System.out.print("title : ");
+        String title = Container.getScanner().nextLine();
+        System.out.print("body : ");
+        String body = Container.getScanner().nextLine();
+
+        m.setTitle(title);
+        m.setBody(body);
+
+        System.out.printf("%d번 motivation을 수정했습니다\n", id);
     }
 
     private Motivation findById(int id) {

@@ -39,8 +39,11 @@ public class App {
                 case "list":
                     motivationController.list();
                     break;
-                case "delete"://delete?id=1이런식으로 입력
+                case "delete":
                     motivationController.delete(rq);
+                    break;
+                case "edit":
+                    motivationController.edit(rq);
                     break;
                 default:
                     System.out.println("사용할 수 없는 명령어 입니다");
