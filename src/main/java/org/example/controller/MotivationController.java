@@ -1,114 +1,64 @@
 package org.example.controller;
 
 import org.example.entity.Motivation;
+import org.example.service.MotivationService;
 import org.example.system.Container;
 import org.example.system.Rq;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MotivationController {
-    int lastId;
-    List<Motivation> ms;
+    private MotivationService MS = new MotivationService();
 
     public MotivationController() {
-        lastId = 0;
-        ms = new ArrayList<>();
-
+        MS = new MotivationService();
     }
 
     public void add() {
-        int id = lastId + 1;
+
         System.out.print("title : ");
         String title = Container.getScanner().nextLine().trim();
         System.out.print("body : ");
         String body = Container.getScanner().nextLine().trim();
 
-        Motivation m = new Motivation(id, body, title);
-        ms.add(m);
-
+        int id = MS.doAdd(title, body);
         System.out.printf("%d번 게시글이 등록 되었습니다\n", id);
-        lastId++;
     }
 
     public void list() {
-        if (ms.size() == 0) {
-            System.out.println("게시물이 없습니다");
-            return;
-        }
-        System.out.println("==Motivation List==");
-        System.out.println("id    /   title   /   body");
-        System.out.println("=".repeat(32));
-
-        for (int i = ms.size() - 1; i >= 0; i--) {
-            Motivation m = ms.get(i);
-            System.out.printf("%d   /   %s  /   %s\n", m.getId(), m.getTitle(), m.getBody());
-        }
-
-
+        MS.showList();
     }
 
     public void delete(Rq rq) {
         System.out.println("delete 실행");
-        int id;
+        int id = MS.doDelete(rq);
 
-        try {
-            id = Integer.parseInt(rq.getParams("id"));
-        } catch (NumberFormatException e) {
+        if (id == 1) {
             System.out.println("정수 입력 오류");
             return;
-        }
-
-        Motivation motivation = findById(id);
-
-        if (motivation == null) {
-            System.out.printf("%d번 motivation은 없어\n", id);
+        } else if (id == 2) {
+            System.out.println("해당 게시물은 없어\n");
             return;
         }
-
-        ms.remove(motivation);
         System.out.printf("%d번 motivation을 삭제했습니다\n", id);
     }
 
 
     public void edit(Rq rq) {
-        System.out.println("eidt 실행");
-        int id;
+        System.out.println("edit 실행");
 
-        try {
-            id = Integer.parseInt(rq.getParams("id"));
-        } catch (NumberFormatException e) {
+        int id = MS.doEdit(rq);
+
+        if (id == -1) {
             System.out.println("정수 입력 오류");
             return;
-        }
-
-        Motivation m = findById(id);
-
-        if (m == null) {
-            System.out.printf("%d번 motivation은 없어\n", id);
+        } else if (id == -2) {
+            System.out.printf("해당 motivation은 없어\n");
             return;
         }
 
-        System.out.println("title(기존) : " + m.getTitle());
-        System.out.println("body(기존) : " + m.getBody());
-
-        System.out.print("title : ");
-        String title = Container.getScanner().nextLine();
-        System.out.print("body : ");
-        String body = Container.getScanner().nextLine();
-
-        m.setTitle(title);
-        m.setBody(body);
-
         System.out.printf("%d번 motivation을 수정했습니다\n", id);
+
     }
 
-    private Motivation findById(int id) {
-        for (Motivation motivation : ms) {
-            if (motivation.getId() == id) {
-                return motivation;
-            }
-        }
-        return null;
-    }
 }
+
+
